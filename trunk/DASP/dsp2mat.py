@@ -6,11 +6,9 @@ Created on 2011-9-1
 @author: WLQ
 '''
 from scipy.io import savemat
-import scipy.io.matlab.streams
 from numpy import loadtxt
 from glob import glob
 import sys
-import os
 from time import clock
 if len(sys.argv)>1:
     files=[]
