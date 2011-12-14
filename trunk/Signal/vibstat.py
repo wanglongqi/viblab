@@ -5,16 +5,16 @@ Created on 2011-12-13
 @author: WLQ
 '''
 import numpy as np
-def moving(m,data,step,points,*args):
+def moving(m,data,step,points,*args,**kwargs):
     'apply a function to a sequence, with a specialfied interval.'
     data=data.flatten()
     if len(data)<=points:
-        return {0:m(data,*args)}
+        return {0:m(data,*args,**kwargs)}
     else:
         index=range(0,len(data)-points+1,step)
         res={}
         for ind in index:
-            res[ind]=m(data[ind:ind+points],*args)
+            res[ind]=m(data[ind:ind+points],*args,**kwargs)
         return res
     
 def postdict(d):
@@ -24,24 +24,24 @@ def postdict(d):
     for key in keys:
         yield d[key]
     
-def fastmoving(m,data,step,points,*args):
+def fastmoving(m,data,step,points,*args,**kwargs):
     '''apply a function to a sequence, with a specialfied interval.
 the output is the same size, the result is store in a ndarray.'''
     data=data.flatten()
     if len(data)<=points:
-        tmp=m(data,*args)
+        tmp=m(data,*args,**kwargs)
         res=np.zeros(tmp.shape+(1,))
         res[...,0]=tmp       
         return res
     else:
         index=range(0,len(data)-points+1,step)
-        tmp=m(data[index[0]:index[0]+points],*args)
+        tmp=m(data[index[0]:index[0]+points],*args,**kwargs)
         res=np.zeros(tmp.shape+(len(index),))
         lastaxis=0
         res[...,lastaxis]=tmp
         for ind in index[1:]:
             lastaxis+=1
-            res[...,lastaxis]=m(data[ind:ind+points],*args)
+            res[...,lastaxis]=m(data[ind:ind+points],*args,**kwargs)
         return res
  
 def rms(v):
