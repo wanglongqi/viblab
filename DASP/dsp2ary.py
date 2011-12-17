@@ -49,6 +49,7 @@ def dsp2mat(files):
 The mat file contains the testing data and infomation about the testing data, too.'''
     import glob
     import scipy.io as sio
+    import scipy.io.matlab.streams  #This line is used to compile this file
     files=glob.glob(files)
     for file in files:
         try:
@@ -58,10 +59,10 @@ The mat file contains the testing data and infomation about the testing data, to
                 long_field_names=False, do_compression=True, oned_as='column')
         except:
             pass
-        
-if __name__=='__main':
+
+if __name__=='__main__':
     if len(sys.argv)>1:
         dsp2mat(sys.argv[1])
     else:
-        print sys.argv[0]+' filepattern'
+        print os.path.relpath(sys.argv[0])+' filepattern'
         print '         Convert DASP testing data to Matlab .mat file'
