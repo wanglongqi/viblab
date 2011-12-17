@@ -1,0 +1,9 @@
+#summary dsp2ary 简介。
+#labels Phase-QA
+
+= Introduction =
+
+dsp2ary 是 [DASPIO] 的一个子模块，它可以用来将DASP测试得到tsp文件和sts文件转化为Matlab(.mat)文件，
+
+
+= Details =
