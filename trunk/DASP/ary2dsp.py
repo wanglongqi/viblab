@@ -63,13 +63,11 @@ def vec2dsp(vec,info,ofile=None):
     WriteTsp(tsp, info)
     tsp.close()
     vec.astype(np.float32).flatten().tofile(ofile+'.sts')
-    
-def ary2dsp(ary,info,head):
-    ffunc=sample_filename_generator(head)
+
+def ary2dsp(ary,info,ffunc):
     for col in range(ary.shape[1]):
         ofile=ffunc.next()
         tsp=open(ofile+'.tsp','w')
         WriteTsp(tsp, info)
         tsp.close()
-        ary[:,col].astype(np.float32).tofile(ofile+'.sts')        
-
+        ary[:,col].astype(np.float32).tofile(ofile+'.sts')   
