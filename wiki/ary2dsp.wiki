@@ -1,0 +1,9 @@
+#summary ary2dsp 简介。
+#labels Phase-QA
+
+= Introduction =
+
+[ary2dsp] 是 [DASPIO] 的一个子模块，它是[dsp2ary]的逆向过程，它用来将文本文件转换为DASP的tsp文件和sts文件，其内部附带实现了[vec2dsp]函数，该函数在[ary2hdf]中使用到。
+
+
+= Details =
