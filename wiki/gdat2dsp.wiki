@@ -1,0 +1,8 @@
+#summary gdat2dsp 简介。
+#labels Phase-QA,Featured
+
+= Introduction =
+
+[gdat2dsp] 是 [DASPIO] 的子模块[ary2dsp]的功能示例，它可以用来将文本文件转换为DASP的tsp文件和sts文件，不保证这一过程与DASP的转换完全一致。不过它的速度应该比DASP的本身实现快很多，特别是当转换的文件来自有限元模型的输出结果的时候（这是该模块的设计背景）。
+
+= Details =
