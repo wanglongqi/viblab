@@ -84,6 +84,9 @@ fgen=ffunc()
 
 for file in others:
     data=np.loadtxt(file,skiprows=SkipRows)
+#    data=np.loadtxt(file,dtype=np.float32,skiprows=SkipRows) 这一行没有使得内存占用更小，也没事的运行更快，反而更慢，因此不采用。
+    if options.verbosity>0:
+        print str(file)+' is loaded to memory.'
     if Lens==0:
         Lens=data.shape[0]
         if verbose():
@@ -92,4 +95,6 @@ for file in others:
     else:
         if verbose():
             ary2dsp(data,info,fgen)
+    if options.verbosity>0:
+        print str(file)+' is saved to the disk.'
     
