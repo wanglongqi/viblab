@@ -51,6 +51,10 @@ def rms(v):
 def peak(v):
     'caculate the peak of a vector'
     return np.max(np.abs(v))
+    
+def dB(data,base=1E-6):
+    'caculate the data in dB'
+    return 20*np.log10(rms(data)/base)
 
 '''
 Several of these functions have a similar version in scipy.stats.mstats which work for masked arrays.
