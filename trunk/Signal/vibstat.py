@@ -48,6 +48,12 @@ def rms(v):
     'caculate the RMS of a vector'
     return np.sqrt(np.dot(v,v)/len(v))
 
+def vdv(v)L
+    '''caculate the VDV of a vector, see ISO2634-1 for details.
+A huge difference of VDV and RMS is that VDV is not averaged over
+time, which means the longer the time, the large VDV we get.'''
+    return np.power(np.power(v,4).sum(),0.25)
+
 def peak(v):
     'caculate the peak of a vector'
     return np.max(np.abs(v))
@@ -55,6 +61,12 @@ def peak(v):
 def dB(data,base=1E-6):
     'caculate the data in dB'
     return 20*np.log10(rms(data)/base)
+    
+def crest(v):
+    '''caculate the crest factor of the given vector.
+Note: vector must first be properly weighted, before using this function.
+'''
+    return peak(v)/rms(v)
 
 '''
 Several of these functions have a similar version in scipy.stats.mstats which work for masked arrays.
