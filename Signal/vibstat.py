@@ -48,7 +48,7 @@ def rms(v):
     'caculate the RMS of a vector'
     return np.sqrt(np.dot(v,v)/len(v))
 
-def vdv(v)L
+def vdv(v):
     '''caculate the VDV of a vector, see ISO2634-1 for details.
 A huge difference of VDV and RMS is that VDV is not averaged over
 time, which means the longer the time, the large VDV we get.'''
@@ -68,6 +68,12 @@ Note: vector must first be properly weighted, before using this function.
 '''
     return peak(v)/rms(v)
 
+def dBwin(data,window=None,base=1E-6):
+    'caculate the data in dB, multiply window first'
+    if window==None:
+        return dB(data,base)
+    else:
+        return 20*np.log10(rms(data*window(len(data)))/base)
 '''
 Several of these functions have a similar version in scipy.stats.mstats which work for masked arrays.
 
