@@ -14,3 +14,4 @@ from ary2dsp import ary2dsp,ary2sts
 from dsp2ary import dsp2ary , dsp2mat
 from dsp2hdf import dsp2hdf
 from hdf2dsp import hdf2dsp
+from daspfilename import DASPName

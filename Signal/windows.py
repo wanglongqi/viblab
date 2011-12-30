@@ -20,7 +20,7 @@ import scipy.signal as ss
 import numpy as np
 def rect(Nx):
     'Return the Rectangle window.'
-    return np.ones(len(Nx))
+    return np.ones(Nx)
 
 def bartlett(Nx):
     'Return the Bartlett window.'

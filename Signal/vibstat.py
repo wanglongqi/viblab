@@ -6,7 +6,25 @@ Created on 2011-12-13
 '''
 import numpy as np
 def moving(m,data,step,points,*args,**kwargs):
-    'apply a function to a sequence, with a specialfied interval.'
+    """
+    Apply a function to a sequence, with a specialfied interval.
+
+    Parameters
+    ----------
+    m     : calculate function.
+    data  : array-like data.
+    step  : moving step points per calculation.
+    points: points of data use to calculate m function.
+    *args,**kwargs: Arguments for m function.
+
+    Returns
+    -------
+    x : dict, the key is the calculate start point, 
+        the value is the result. If the shape of 
+        every result is the same and is a 1d array
+        use fastmoving instead of this one.
+    """
+
     data=data.flatten()
     if len(data)<=points:
         return {0:m(data,*args,**kwargs)}
@@ -18,15 +36,40 @@ def moving(m,data,step,points,*args,**kwargs):
         return res
     
 def postdict(d):
-    'proceed the moving output dict, the key is sorted.'
+    """
+    Proceed the moving output dict, the key is sorted.
+
+    Parameters
+    ----------
+    d     : moving output dict.
+
+    Returns
+    -------
+    x     : generator with key is sorted.
+    """
     keys=d.keys()
     keys.sort()
     for key in keys:
         yield d[key]
     
 def fastmoving(m,data,step,points,*args,**kwargs):
-    '''apply a function to a sequence, with a specialfied interval.
-the output is the same size, the result is store in a ndarray.'''
+    """
+    Apply a function to a sequence, with a specialfied interval.
+    The output is the same size, the result is store in a ndarray.
+
+    Parameters
+    ----------
+    m     : calculate function.
+    data  : array-like data.
+    step  : moving step points per calculation.
+    points: points of data use to calculate m function.
+    *args,**kwargs: Arguments for m function.
+
+    Returns
+    -------
+    x     : ndarray, result of the calculation.
+    """
+    
     data=data.flatten()
     if len(data)<=points:
         tmp=m(data,*args,**kwargs)
@@ -45,35 +88,128 @@ the output is the same size, the result is store in a ndarray.'''
         return res
  
 def rms(v):
-    'caculate the RMS of a vector'
+    """
+    Calculate the RMS of a vector.
+
+    Parameters
+    ----------
+    v     : input vector.
+    
+    Returns
+    -------
+    x     : RMS.
+    """    
     return np.sqrt(np.dot(v,v)/len(v))
 
-def vdv(v):
-    '''caculate the VDV of a vector, see ISO2634-1 for details.
-A huge difference of VDV and RMS is that VDV is not averaged over
-time, which means the longer the time, the large VDV we get.'''
-    return np.power(np.power(v,4).sum(),0.25)
+def vdv(v,Fs=1.0):
+    """
+    Calculate the VDV of a vector, see ISO2634-1 for details.
+    A huge difference of VDV and RMS is that VDV is not averaged over
+    time, which means the longer the time, the large VDV we get.
+
+    Parameters
+    ----------
+    v     : input vector.
+    Fs    : Float, Fs is needed in VDV calculatin.
+    
+    Returns
+    -------
+    x     : VDV.
+    """    
+    return np.power(np.power(v,4).sum()/Fs,0.25)
 
 def peak(v):
-    'caculate the peak of a vector'
+    """
+    Calculate the peak of a vector.
+
+    Parameters
+    ----------
+    v     : input vector.
+    
+    Returns
+    -------
+    x     : peak of the vector.
+    """    
     return np.max(np.abs(v))
     
 def dB(data,base=1E-6):
-    'caculate the data in dB'
+    """
+    Calculate the data in dB.
+
+    Parameters
+    ----------
+    data  : input vector.
+    base  : base value of the dB calculation. Default value is 
+            for vibration level calculation.
+    
+    Returns
+    -------
+    x     : dB of the signal.
+    """   
     return 20*np.log10(rms(data)/base)
     
 def crest(v):
-    '''caculate the crest factor of the given vector.
-Note: vector must first be properly weighted, before using this function.
-'''
+    """
+    Calulate the crest factor of the given vector.
+
+    Parameters
+    ----------
+    v     : input vector.
+    
+    Returns
+    -------
+    x     : crest factor of the vector.
+    
+    Note
+    -------
+    Vector must first be properly weighted, before using this function.
+    """  
     return peak(v)/rms(v)
 
 def dBwin(data,window=None,base=1E-6):
-    'caculate the data in dB, multiply window first'
+    """
+    Calculate the data in dB, multiply window first.
+
+    Parameters
+    ----------
+    data  : input vector.
+    window: function, the window to be multiplied. 
+    base  : base value of the dB calculation. Default value is 
+            for vibration level calculation.
+    
+    Returns
+    -------
+    x     : dB of the signal.
+    
+    Note
+    -------
+    viblab.win has a lot of window in it, if you are interested,
+    go and see.
+    """   
     if window==None:
         return dB(data,base)
     else:
         return 20*np.log10(rms(data*window(len(data)))/base)
+        
+def dBz(data):
+    """
+    A shortcut for Calculate dBz.
+
+    Parameters
+    ----------
+    data  : input vector.
+    
+    Returns
+    -------
+    x     : dB of the signal. 
+    
+    Note
+    -------
+    Data must first be properly weighted, before using this function.   
+    """
+    import viblab
+    return dBwin(data,window=viblab.win.hann)
+
 '''
 Several of these functions have a similar version in scipy.stats.mstats which work for masked arrays.
 
