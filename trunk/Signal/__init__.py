@@ -10,7 +10,7 @@ Created on 2011-12-28
 @author: WLQ
 '''
 import spec
-from vibstat import crest,dB,dBwin,fastmoving,moving,peak,postdict,rms,vdv
+from vibstat import crest,dB,dBwin,fastmoving,moving,peak,postdict,rms,vdv,dBz
 from weighting import Weight
 import windows as win
 
