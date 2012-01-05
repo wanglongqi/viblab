@@ -11,15 +11,15 @@
 
 该程序使用guidata开发的，代码非常简单。界面实际就是个输入窗口，如下图所示
 
-./begin.png
+http://viblab.googlecode.com/svn/wiki/begin.png
 
 在上图中相应位置填写相应内容后点击确定就可以进行转换了。信息不全的部分用桔黄色标识出来了，如果在信息不全的情况下点击确定那么程序将给出提示。
 
-./error.png
+http://viblab.googlecode.com/svn/wiki/error.png
 
 请注意：很多默认值可能是适合给定文件的实际情况，请仔细核对。
 在程序开始转换前，程序会将输入再次打印出来，请仔细核对各项参数是否正确。
 
-./view.png
+http://viblab.googlecode.com/svn/wiki/view.png
 
 上述窗口关闭后转换就开始了，一般的有限元计算文件应该可以在几秒钟内完成转换。
