@@ -18,8 +18,13 @@ http://viblab.googlecode.com/svn/wiki/begin.png
 http://viblab.googlecode.com/svn/wiki/error.png
 
 请注意：很多默认值可能是适合给定文件的实际情况，请仔细核对。
+
 在程序开始转换前，程序会将输入再次打印出来，请仔细核对各项参数是否正确。
 
 http://viblab.googlecode.com/svn/wiki/view.png
 
 上述窗口关闭后转换就开始了，一般的有限元计算文件应该可以在几秒钟内完成转换。
+
+= Note =
+
+该程序的命令行版本[dat2dsp]可以批量的完成本程序的功能，如需要可以下载[dat2dsp]的命令行版本。
