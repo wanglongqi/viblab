@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 '''
 Created on 2011-12-19
+Modified on 2012-3-28
 
 @author: WLQ
 '''
@@ -10,6 +11,7 @@ from guidata.dataset.datatypes import DataSet, BeginGroup, EndGroup
 from guidata.dataset.dataitems import (FloatItem, IntItem, StringItem, TextItem, FileOpenItem)
 from ary2dsp import ary2dsp
 import numpy as np
+import os
 from guidata.configtools import get_icon
 from PyQt4 import QtGui as QG
 
@@ -61,17 +63,23 @@ if __name__ == "__main__":
     
     while(dialog.edit()):
         try:
-            data=np.loadtxt(dialog.Fname,skiprows=dialog.SkipRows)
+            if os.path.splitext(dialog.Fname)[1]=='.csv':
+                data=np.loadtxt(dialog.Fname,skiprows=dialog.SkipRows,delimiter=',')
+            else:
+                data=np.loadtxt(dialog.Fname,skiprows=dialog.SkipRows)
         except Exception,msg:
             print 'Load data file Error!\n',msg
+            continue
         if dialog.Lens==0:
             dialog.Lens=data.shape[0]
-        dialog.view()
-        info={'Fs':dialog.Fs,
-            'Lens':dialog.Lens,
-            'Unit':dialog.Unit,                        
-        }
-        fgen=ffunc(dialog)
-        ary2dsp(data,info,fgen)
-        
+        if dialog.ExpName=='Test':
+            dialog.ExpName=os.path.splitext(os.path.basename(dialog.Fname))[0]
+        if dialog.view():
+            info={'Fs':dialog.Fs,
+                'Lens':dialog.Lens,
+                'Unit':dialog.Unit,                        
+            }
+            fgen=ffunc(dialog)
+            ary2dsp(data,info,fgen)
+            dialog.ExpName='Test'
 
