@@ -1,5 +1,5 @@
+#summary Windows Binary of pdf2svg.
 #labels Featured
-#Windows Binary of pdf2svg.
 
 = Introduction =
 
